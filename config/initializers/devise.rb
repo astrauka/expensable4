@@ -4,8 +4,7 @@ Devise.setup do |config|
   config.omniauth :facebook,
                   ENV['FB_APP_ID'],
                   ENV['FB_APP_KEY'],
-                  scope: %w(email),
-                  callback_url: "https://#{ENV['HOST']}/users/auth/facebook/callback"
+                  scope: %w(email)
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing

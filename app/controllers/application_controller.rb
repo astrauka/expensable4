@@ -3,14 +3,10 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  private
   # user after sign in path
-  def new_session_path(scope)
-    case scope.to_sym
-    when :user
-      user_groups_url(current_user)
-    else
-      root_url
-    end
+  def after_sign_in_path_for(resource)
+    user_groups_url
   end
 
   def after_sign_out_path
