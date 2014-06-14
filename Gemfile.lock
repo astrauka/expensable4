@@ -1,6 +1,5 @@
-GIT
-  remote: git://github.com/bitzesty/bz-core
-  revision: 143d29707c48f06fafa23080add4899f0e940297
+PATH
+  remote: ../bz-core
   specs:
     bz-core (0.0.4)
       bootstrap-datepicker-rails
