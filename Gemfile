@@ -24,7 +24,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 
 gem 'bz-core', '0.0.5', require: 'bz_core',
-    git: 'git://github.com/bitzesty/bz-core'
+    git: 'git://github.com/astrauka/bz-core'
     # path: '../bz-core'
 
 group :development, :test do

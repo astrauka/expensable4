@@ -1,5 +1,10 @@
+= render "shared/fb_login"
+
 ul.nav.navbar-nav
   = nav_item "About",
              about_pages_path,
              { pages: :about },
              { link_opts: { data: { action: :about } } }
+
+.pull-right
+  = render "shared/fb_like_btn"
