@@ -1,0 +1,23 @@
+nav.navbar.navbar-default role="navigation"
+  .navbar-header
+    button.navbar-toggle data-toggle="collapse" data-target=".navbar-collapse" type="button"
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+
+    - if content_for?(:navbar_brand)
+            = yield :navbar_brand
+    - else
+            = link_to "Home",
+                      root_path,
+                      class: 'navbar-brand'
+
+  / toglable content
+  .collapse.navbar-collapse
+    - if content_for?(:navbar_collapse)
+      = yield :navbar_collapse
+    - else
+      ul.nav.navbar-nav
+        = nav_item "Example",
+                   root_path,
+                   active: :homes

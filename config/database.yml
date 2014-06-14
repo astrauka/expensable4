@@ -1,0 +1,15 @@
+defaults: &defaults
+  adapter: postgresql
+  encoding: utf8
+  host: localhost
+  port: 5432
+  username: postgres
+  password:
+
+development:
+  <<: *defaults
+  database: expensable_development
+
+test:
+  <<: *defaults
+  database: expensable_test
