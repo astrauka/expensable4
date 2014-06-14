@@ -48,4 +48,6 @@ group :development do
   gem 'rails_layout'
   gem 'bullet'
   gem 'rails_view_annotator'
+  gem 'binding_of_caller'
+  gem 'better_errors'
 end
