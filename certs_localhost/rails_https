@@ -1,0 +1,17 @@
+server {
+  listen 80;
+  rewrite ^(.*) https://$host$1 permanent;
+}
+
+server {
+  listen 443;
+  ssl on;
+  ssl_certificate /usr/local/etc/nginx/certs_localhost/localhost.crt;
+  ssl_certificate_key /usr/local/etc/nginx/certs_localhost/localhost.key;
+
+  location / {
+    proxy_pass http://localhost:3000;
+    proxy_set_header Host      $host;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+}

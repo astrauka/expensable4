@@ -23,9 +23,15 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
+gem 'email_validator'
+
+gem 'decent_exposure'
+
 gem 'bz-core', '0.0.5', require: 'bz_core',
     git: 'git://github.com/astrauka/bz-core'
     # path: '../bz-core'
+
+gem 'awesome_print'
 
 group :development, :test do
   gem 'factory_girl_rails'

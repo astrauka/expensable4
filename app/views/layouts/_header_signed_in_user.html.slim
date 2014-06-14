@@ -3,7 +3,7 @@ ul.nav.navbar-nav
              about_pages_path,
              { pages: :about },
              { link_opts: { data: { action: :about } } }
-  = render "shared/fb_login"
 
-.pull-right
-  = render "shared/fb_like_btn"
+  li
+    = link_to "Logout",
+              destroy_user_session_path

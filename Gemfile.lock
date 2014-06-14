@@ -53,6 +53,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
+    awesome_print (1.2.0)
     bcrypt (3.1.7)
     better_errors (1.1.0)
       coderay (>= 1.0.0)
@@ -110,6 +111,8 @@ GEM
       activemodel (>= 3.0)
       activesupport (>= 3.0)
       request_store (~> 1.0.3)
+    email_validator (1.4.0)
+      activemodel
     erubis (2.7.0)
     execjs (2.2.0)
     factory_girl (4.4.0)
@@ -276,6 +279,7 @@ PLATFORMS
 
 DEPENDENCIES
   Platform
+  awesome_print
   better_errors
   binding_of_caller
   bootstrap-sass
@@ -284,7 +288,9 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   database_cleaner
+  decent_exposure
   devise
+  email_validator
   factory_girl_rails
   headless
   jbuilder (~> 1.2)
