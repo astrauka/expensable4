@@ -59,4 +59,19 @@ describe AuthenticateViaFacebook do
       end
     end
   end
+
+  describe "#accept_invites" do
+    let(:result) { interactor.run }
+    let!(:new_invite) { create :invite, uid: uid }
+    let!(:accepted_invite) { create :invite, :accepted, uid: uid }
+    let!(:other_member_invite) { create :invite, uid: "123x" }
+    let(:user_groups) { interactor.user.groups }
+
+    it "accepts all not accpepted invites" do
+      result
+      expect(user_groups).to include new_invite.group
+      expect(user_groups).to_not include accepted_invite.group
+      expect(user_groups).to_not include other_member_invite.group
+    end
+  end
 end

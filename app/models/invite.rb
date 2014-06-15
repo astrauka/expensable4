@@ -3,4 +3,7 @@ class Invite < ActiveRecord::Base
 
   validates :uid, presence: true
   validates :group, presence: true
+
+  scope :not_accepted, -> { where accepted: false }
+  scope :for_uid, ->(uid) { where uid: uid }
 end

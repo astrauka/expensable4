@@ -6,8 +6,12 @@ class AuthenticateViaFacebook
   end
 
   def run
-    @user = create_or_update_user
-    @success = user.persisted? && identity.persisted?
+    begin
+      create_or_update_user
+      accept_invites
+    rescue ActiveRecord::RecordInvalid
+      @failed = true
+    end
 
     self
   end
@@ -17,20 +21,36 @@ class AuthenticateViaFacebook
   end
 
   def create_or_update_user
-    user = identity.user || identity.build_user
-    user.update(
+    @user = identity.user || identity.build_user
+    user.update!(
       email: auth.info.email,
       first_name: auth.info.first_name,
       last_name: auth.info.last_name
     )
 
     # persist user_id
-    identity.save
+    identity.save!
 
     user
   end
 
+  def accept_invites
+    if newly_invited_group_ids.any?
+      user.groups << Group.where(id: newly_invited_group_ids)
+    end
+  end
+
+  def newly_invited_group_ids
+    @newly_invited_group_ids ||= not_accepted_group_ids - user.group_ids
+  end
+
+  def not_accepted_group_ids
+    Invite.for_uid(identity.uid)
+          .not_accepted
+          .map(&:group_id)
+  end
+
   def success?
-    @success
+    !@failed
   end
 end
