@@ -7,16 +7,29 @@ class CreateUserGroup
   end
 
   def run
-    group
+    begin
+      persist_group
+    rescue ActiveRecord::RecordInvalid
+      @failed = true
+    end
 
     self
   end
 
+  def persist_group
+    group.save!
+    add_user_to_the_group
+  end
+
   def group
-    @group ||= user.groups.create(group_params)
+    @group ||= user.groups.build(group_params)
+  end
+
+  def add_user_to_the_group
+    group.users << user
   end
 
   def success?
-    group.persisted?
+    !@failed
   end
 end

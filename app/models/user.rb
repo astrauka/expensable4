@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :groups,
            through: :user_group_relationships
 
-  has_one :identity, dependet: :destroy
+  has_one :identity, dependent: :destroy
 
   validates :email, email: true
 end

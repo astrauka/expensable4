@@ -10,8 +10,8 @@ describe CreateUserGroup do
   end
   let(:group_name) { "Personal" }
 
-  describe "#group" do
-    let(:result) { interactor.group }
+  describe "#persist_group" do
+    let(:result) { interactor.persist_group }
 
     it "persists the group" do
       result
@@ -22,6 +22,34 @@ describe CreateUserGroup do
       result
       expect(interactor.user.groups.count).to eq 1
       expect(interactor.group.users).to eq [user]
+    end
+
+    context "on failure" do
+      let(:group_name) { "" }
+
+      it "throws exception" do
+        expect {
+          result
+        }.to raise_error ActiveRecord::RecordInvalid
+      end
+    end
+  end
+
+  describe "#run" do
+    let(:result) { interactor.run }
+
+    it "records success" do
+      expect(result.group).to be_kind_of Group
+      expect(result).to be_success
+    end
+
+    context "on group persist failure" do
+      let(:group_name) { "" }
+
+      it "records failure" do
+        expect(result.group).to be_kind_of Group
+        expect(result).to_not be_success
+      end
     end
   end
 end
