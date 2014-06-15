@@ -1,0 +1,9 @@
+h1
+  =' group.name
+  = link_to "back",
+            [:user, :groups],
+            class: "btn btn-default btn-sm"
+
+.row
+  p Name
+  p = group.name

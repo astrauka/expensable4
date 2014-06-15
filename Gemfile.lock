@@ -230,7 +230,7 @@ GEM
       sprockets-rails (~> 2.0)
     select2-rails (3.5.7)
       thor (~> 0.14)
-    simple_form (3.0.2)
+    simple_form (3.1.0.rc1)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
     slim (2.0.2)
@@ -282,7 +282,7 @@ DEPENDENCIES
   awesome_print
   better_errors
   binding_of_caller
-  bootstrap-sass
+  bootstrap-sass (~> 3.1.1.0)
   bullet
   bz-core (= 0.0.5)!
   capybara
@@ -307,7 +307,7 @@ DEPENDENCIES
   rails_view_annotator
   rspec-rails
   sass-rails (~> 4.0.2)
-  simple_form
+  simple_form (~> 3.1.0.rc1)
   slim-rails
   spring
   spring-commands-rspec

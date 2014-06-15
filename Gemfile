@@ -15,8 +15,8 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 1.2'
 
 gem 'slim-rails'
-gem 'simple_form'
-gem 'bootstrap-sass'
+gem 'simple_form', '~> 3.1.0.rc1'
+gem 'bootstrap-sass', '~> 3.1.1.0'
 gem 'kaminari'
 
 gem 'devise'

@@ -1,11 +1,11 @@
 ul.nav.navbar-nav
-  = nav_item "About",
+  = nav_item "about",
              about_pages_path,
              { pages: :about },
              { link_opts: { data: { action: :about } } }
 
   li
-    = link_to "Logout",
+    = link_to "logout",
               destroy_user_session_path
 
 .pull-right
