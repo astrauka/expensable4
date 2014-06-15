@@ -1,0 +1,3 @@
+class GroupDecorator < ApplicationDecorator
+
+end

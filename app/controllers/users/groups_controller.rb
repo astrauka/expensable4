@@ -1,6 +1,5 @@
 module Users
   class GroupsController < ::Users::BaseController
-    expose(:groups) { user.groups }
     expose(:group, attributes: :group_params)
 
     def index
@@ -18,6 +17,26 @@ module Users
       else
         flash[:alert] = "problem occured"
         render :new
+      end
+    end
+
+    def update
+      if group.save
+        redirect_to [:user, group],
+                    notice: "group saved"
+      else
+        flash[:alert] = "problem occured"
+        render :edit
+      end
+    end
+
+    def destroy
+      if group.destroy
+        redirect_to [:user, :groups],
+                    notice: "group destroyed"
+      else
+        redirect_to [:user, :groups],
+                    alert: "problem occured"
       end
     end
 

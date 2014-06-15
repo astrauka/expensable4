@@ -1,9 +1,26 @@
 h1
   =' group.name
-  = link_to "back",
+  =' link_to "back",
             [:user, :groups],
             class: "btn btn-default btn-sm"
 
+  =' link_to "manage",
+             [:edit, :user, group],
+             class: "btn btn-primary btn-sm",
+             data: { action: 'edit' }
+
+  =' link_to "invite friends",
+             [:user, group, :invites],
+             class: "btn btn-success btn-sm",
+             data: { action: 'edit' }
+
 .row
-  p Name
-  p = group.name
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th Name
+          th &nbsp;
+      tbody
+        - group_users.decorate.each do |user|
+          = render "user", user: user

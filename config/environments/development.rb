@@ -33,4 +33,10 @@ Expensable::Application.configure do
   config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
 
   config.action_controller.action_on_unpermitted_parameters = :raise
+
+  config.after_initialize do
+    Expensable.configure do |app_config|
+      app_config.allow_simulate_invite = true
+    end
+  end
 end

@@ -4,3 +4,18 @@ h1
             new_user_group_path,
             data: { action: "new" },
             class: "btn btn-primary btn-sm"
+
+.row
+  - if groups.none?
+    p
+      | You have no groups
+  - else
+    .table-responsive
+      table.table
+        thead
+          tr
+            th title
+            th &nbsp;
+        tbody
+          - groups.decorate.each do | group|
+            = render "group", group: group

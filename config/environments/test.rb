@@ -34,4 +34,9 @@ Expensable::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  config.after_initialize do
+    Expensable.configure do |app_config|
+    end
+  end
 end

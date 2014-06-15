@@ -4,10 +4,30 @@ h1
             [:user, :groups],
             class: "btn btn-default btn-sm"
 
-= simple_form_for group,
-                  url: [:user, group],
-                  html: { class: "form-vertical" } do |f|
-  = render "fields", f: f
-  = f.button :submit,
-             "submit",
-             data: { action: 'submit' }
+.row.group-fields
+  = simple_form_for group,
+                    url: [:user, group],
+                    html: { class: "form-vertical" } do |f|
+    = render "fields", f: f
+    = f.button :submit,
+               "submit",
+               data: { action: 'submit' },
+               class: "btn btn-primary"
+
+.row.group-users
+  h2
+    ' users
+    =' link_to "invite friends",
+               [:user, group, :invites],
+               class: "btn btn-success btn-sm",
+               data: { action: 'edit' }
+
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th Name
+          th &nbsp;
+      tbody
+        - group_users.decorate.each do |user|
+          = render "user", user: user

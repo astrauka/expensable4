@@ -14,5 +14,15 @@ Expensable::Application.routes.draw do
 
   namespace :user, module: "users" do
     resources :groups
+
+    namespace :group, module: "groups", path: "groups/:group_id" do
+      resources :members, only: [:destroy] do
+        member {
+          post :deactivate
+        }
+      end
+
+      resources :invites, only: [:index, :create]
+    end
   end
 end

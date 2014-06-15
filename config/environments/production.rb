@@ -77,4 +77,9 @@ Expensable::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.after_initialize do
+    Expensable.configure do |app_config|
+    end
+  end
 end

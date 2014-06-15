@@ -1,0 +1,31 @@
+/ for inviting users via FB dialog
+= javascript_include_tag "//connect.facebook.net/en_US/all.js"
+
+h1
+  ' invite friends
+
+  =' link_to "back to management",
+            [:edit, :user, group],
+            class: "btn btn-default btn-sm"
+
+.row
+  .col-md-8
+    p
+      ' Invite friends via Facebook account to share the expenses together.
+    p
+      ' The friends will join the group only when they accept the invite.
+
+.row
+  .col-md-8
+    =' link_to "Invite",
+              "#",
+              class: "btn btn-primary",
+              data: { action: 'fb-invite',
+                      app_id: ENV['FB_APP_ID'],
+                      callback_url: user_group_invites_path(group) }
+
+    - if Expensable.allow_simulate_invite
+      =' link_to "Simulate invite",
+                "#",
+                class: "btn btn-warning",
+                data: { action: 'simulate-fb-invite' }
