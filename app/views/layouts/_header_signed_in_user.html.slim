@@ -4,6 +4,11 @@ ul.nav.navbar-nav
              { pages: :about },
              { link_opts: { data: { action: :about } } }
 
+  = nav_item "groups",
+             user_groups_path,
+             %w(groups invites),
+             { link_opts: { data: { action: :groups } } }
+
   li
     = link_to "logout",
               destroy_user_session_path
