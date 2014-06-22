@@ -1,0 +1,9 @@
+h3 members
+
+.row
+  .table-responsive
+    table.table.table-striped
+      tbody
+        - members.decorate.each do |member|
+          = render "member", member: member
+

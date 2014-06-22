@@ -1,0 +1,18 @@
+h3
+  ' expenses
+  =' link_to "new",
+             [:new, :user, group, :expense],
+             class: "btn btn-primary btn-sm",
+             data: { action: 'new' }
+
+.row
+  .table-responsive
+    table.table.table-striped
+      thead
+        tr
+          th description
+          th &nbsp;
+      tbody
+        - expenses.decorate.each do |expense|
+          = render "expense", expense: expense
+

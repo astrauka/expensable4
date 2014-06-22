@@ -23,6 +23,8 @@ Expensable::Application.routes.draw do
       end
 
       resources :invites, only: [:index, :create]
+
+      resources :expenses
     end
   end
 end

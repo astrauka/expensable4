@@ -1,0 +1,14 @@
+h1
+  ' new expense
+  = link_to "back",
+            [:user, group],
+            class: "btn btn-default btn-sm"
+
+= simple_form_for expense,
+                  url: [:user, group, expense],
+                  html: { class: "form-vertical" } do |f|
+  = render "fields", f: f
+  = f.button :submit,
+             "submit",
+             data: { action: 'submit' },
+             class: "btn btn-primary"

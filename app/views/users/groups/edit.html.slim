@@ -29,5 +29,5 @@ h1
           th Name
           th &nbsp;
       tbody
-        - group_users.decorate.each do |user|
-          = render "user", user: user
+        - members.decorate.each do |member|
+          = render "member", member: member

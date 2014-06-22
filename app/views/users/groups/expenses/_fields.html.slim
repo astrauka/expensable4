@@ -1,0 +1,12 @@
+= f.input :description
+= f.input :spent
+= f.association :payer,
+                collection: group.active_users,
+                include_blank: false
+= f.input :hidden,
+          label: "Hide from others?"
+= f.simple_fields_for :shares,
+                      html: { class: "form-inline" } do |fs|
+  = fs.input :multiplier
+  = fs.input :sharing
+

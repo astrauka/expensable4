@@ -1,0 +1,2 @@
+class ExpenseDecorator < ApplicationDecorator
+end

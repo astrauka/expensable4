@@ -1,6 +1,7 @@
 module Users
   class GroupsController < ::Users::BaseController
     expose(:group, attributes: :group_params)
+    expose(:expenses)
 
     def index
     end

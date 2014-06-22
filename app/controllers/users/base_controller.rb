@@ -7,7 +7,7 @@ module Users
 
     expose(:groups) { user.groups }
     expose(:group)
-    expose(:group_users) { group.users }
+    expose(:members) { group.users }
 
     private
     def require_current_user!

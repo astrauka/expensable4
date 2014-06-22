@@ -27,6 +27,8 @@ gem 'email_validator'
 
 gem 'decent_exposure'
 
+gem 'money-rails'
+
 gem 'bz-core', '0.0.5', require: 'bz_core',
     git: 'git://github.com/astrauka/bz-core'
     # path: '../bz-core'
