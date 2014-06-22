@@ -1,4 +1,5 @@
-= Expensable
+# Expensable
+
 ## Environment
 
 ### Facebook authentication
