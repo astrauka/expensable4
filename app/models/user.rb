@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
            inverse_of: :payer,
            foreign_key: :payer_id
 
+  has_many :shares
+
   has_one :identity, dependent: :destroy
 
   validates :email, email: true
@@ -27,5 +29,9 @@ class User < ActiveRecord::Base
 
   def name
     [first_name, last_name].join(' ')
+  end
+
+  def balance_for(group)
+    user_group_relationships.for_group(group).first.balance
   end
 end

@@ -5,34 +5,33 @@ module Users
       expose(:expense) { expense_form.expense }
 
       def new
-        self.expense = Expense.new payer: user
+        self.expense_form = ExpenseForm.new user, group, {}
       end
 
       def create
-        creator = CreateMemberInvites.new(group, invited_user_fb_ids).run
-        # async
-        if creator.success?
-          flash[:notice] = "invite sent"
-          render status: :ok,
-                 json: { redirect_to: edit_user_group_url(group) }
+        if expense_form.save
+          redirect_to [:user, group],
+                      notice: "created successfully"
         else
-          flash[:alert] = "problem occured"
-          render status: :unprocessable_entity,
-                 json: { redirect_to: edit_user_group_url(group) }
+          flash[:notice] = 'problem occured'
+          render :new
         end
       end
 
       private
 
       def expense_params
-        params.require(:expense).permit(
-          :payer,
-          :spent,
-          :description,
-          :hidden,
-          shares_attributes: [
+        params.require(:expense_form).permit(
+          expense: [
+            :payer_id,
+            :spent,
+            :description,
+            :hidden,
+          ],
+          shares_with_sharing_input_attributes: [
             :multiplier,
             :sharing,
+            :user_id,
           ]
         )
       end

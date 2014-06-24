@@ -4,7 +4,8 @@ h1
             [:user, group],
             class: "btn btn-default btn-sm"
 
-= simple_form_for expense,
+= simple_form_for expense_form,
+                  as: :expense_form,
                   url: [:user, group, expense],
                   html: { class: "form-vertical" } do |f|
   = render "fields", f: f

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140622095317) do
+ActiveRecord::Schema.define(version: 20140624184141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,12 +59,25 @@ ActiveRecord::Schema.define(version: 20140622095317) do
   add_index "invites", ["group_id"], name: "index_invites_on_group_id", using: :btree
   add_index "invites", ["uid"], name: "index_invites_on_uid", using: :btree
 
+  create_table "shares", force: true do |t|
+    t.integer  "expense_id"
+    t.integer  "multiplier"
+    t.integer  "single_price_cents", default: 0, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "shares", ["expense_id"], name: "index_shares_on_expense_id", using: :btree
+  add_index "shares", ["user_id", "expense_id"], name: "index_shares_on_user_id_and_expense_id", using: :btree
+
   create_table "user_group_relationships", force: true do |t|
     t.integer  "user_id"
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "active",     default: true
+    t.boolean  "active",        default: true
+    t.integer  "balance_cents", default: 0,    null: false
   end
 
   add_index "user_group_relationships", ["group_id", "user_id"], name: "index_user_group_relationships_on_group_id_and_user_id", using: :btree
