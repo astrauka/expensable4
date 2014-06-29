@@ -12,13 +12,15 @@ Expensable::Application.routes.draw do
     }
   end
 
+  resource :user, only: [:edit, :update]
+
   namespace :user, module: "users" do
     resources :groups
 
     namespace :group, module: "groups", path: "groups/:group_id" do
-      resources :members, only: [:destroy] do
+      resources :members, only: [] do
         member {
-          post :deactivate
+          post :toggle_active
         }
       end
 

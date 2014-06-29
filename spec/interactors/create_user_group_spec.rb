@@ -24,6 +24,11 @@ describe CreateUserGroup do
       expect(interactor.group.users).to eq [user]
     end
 
+    it 'stores group creator' do
+      result
+      expect(interactor.group.creator).to eq user
+    end
+
     context "on failure" do
       let(:group_name) { "" }
 

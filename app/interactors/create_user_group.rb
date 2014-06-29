@@ -17,6 +17,7 @@ class CreateUserGroup
   end
 
   def persist_group
+    group.creator = user
     group.save!
     add_user_to_the_group
   end

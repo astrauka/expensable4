@@ -3,7 +3,7 @@ class Group < ActiveRecord::Base
            dependent: :destroy
   has_many :active_user_group_relationships,
            -> { where(active: true) },
-           class_name: "UserGroupRelationship"
+           class_name: 'UserGroupRelationship'
 
   has_many :users,
            through: :user_group_relationships
@@ -12,7 +12,14 @@ class Group < ActiveRecord::Base
            source: :user
 
   has_many :invites, dependent: :destroy
-  has_many :expenses
+  has_many :expenses, dependent: :destroy
+
+  belongs_to :creator,
+             class_name: 'User'
 
   validates :name, presence: true
+
+  def balance_for(user)
+    user_group_relationships.for_user(user).first.try(:balance)
+  end
 end

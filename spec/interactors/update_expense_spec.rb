@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UpdateExpense do
-  let(:interactor) { described_class.new(expense, new_shares) }
+  let(:interactor) { described_class.new(expense, new_shares, destroy: destroy) }
   let!(:expense) { create :expense, group: group, spent_cents: spent_cents }
   let!(:user) { group.users.create! attributes_for(:user) }
   let!(:group) { create :group }
@@ -16,6 +16,7 @@ describe UpdateExpense do
   end
   let(:multiplier) { 2 }
   let(:spent_cents) { 10_00 }
+  let(:destroy) { false }
 
   describe '#substract_old_shares_from_balances' do
     let(:result) { interactor.substract_old_shares_from_balances }
@@ -81,6 +82,47 @@ describe UpdateExpense do
       result
       # removing from payer balance
       expect(expense.payer.balance_for(group)).to eq expense.spent
+    end
+  end
+
+  describe '.destroy' do
+    let(:result) { described_class.destroy(expense) }
+    let!(:expense) { create :expense,
+                           group: group,
+                           spent_cents: 100_00,
+                           creator: payer,
+                           payer: payer }
+    let!(:payer_old_share) { create :share,
+                                    expense: expense,
+                                    user: payer,
+                                    multiplier: 1,
+                                    single_price_cents: 25_00 }
+    let!(:share_user_new_share) { create :share,
+                                         expense: expense,
+                                         user: share_user,
+                                         multiplier: 3,
+                                         single_price_cents: 25_00 }
+    let!(:payer) { group.users.create attributes_for(:user) }
+    let!(:share_user) { group.users.create attributes_for(:user) }
+    let!(:payer_balance) {
+      payer.user_group_relationships.first.update!(
+        group: group,
+        balance_cents: 75_00
+      )
+    }
+    let!(:share_user_balance) {
+      share_user.user_group_relationships.first.update!(
+        group: group,
+        balance_cents: -75_00
+      )
+    }
+
+    it 'updates balances and removes shares' do
+      result
+      expect(payer.balance_for(group)).to eq 0
+      expect(share_user.balance_for(group)).to eq 0
+      expect(Share.count).to eq 0
+      expect(Expense.count).to eq 0
     end
   end
 end

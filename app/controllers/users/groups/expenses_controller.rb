@@ -30,6 +30,18 @@ module Users
         end
       end
 
+      def destroy
+        self.expense = Expense.find(params[:id])
+
+        if UpdateExpense.destroy(expense).success?
+          redirect_to [:user, group],
+                      notice: 'deleted successfully'
+        else
+          redirect_to [:user, group],
+                      alert: 'problem occured'
+        end
+      end
+
       private
 
       def expense_params

@@ -17,4 +17,11 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path
     root_url
   end
+
+  def require_current_user!
+    if current_user.nil?
+      flash[:alert] ||= "Unpermitted action"
+      redirect_to root_url
+    end
+  end
 end

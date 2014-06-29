@@ -7,14 +7,22 @@ module Users
 
     expose(:groups) { user.groups }
     expose(:group)
-    expose(:members) { group.users }
+    expose(:members) { group.active_users.by_name }
+    expose(:members_including_inactive) { group.users.by_name }
+    expose(:user_group_relationships) { group.user_group_relationships }
+    helper_method :balance_for,
+                  :self?
 
     private
-    def require_current_user!
-      if current_user.nil?
-        flash[:alert] ||= "Unpermitted action"
-        redirect_to root_url
-      end
+
+    def balance_for(member)
+     user_group_relationships.find do |relationship|
+       relationship.user_id == member.id
+     end.try(:balance)
+    end
+
+    def self?(user)
+      current_user == user
     end
   end
 end

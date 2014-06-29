@@ -4,12 +4,13 @@ tr
   td
     = link_to expense,
               [:edit, :user, group, expense],
+              class: "btn btn-xs btn-info",
               data: { action: 'show' }
   td
     = expense.payer
   td
     = expense.spent
   td.shares
-    - expense.shares.decorate.each do |share|
-        .btn.btn-xs.user-name title="Actual shared price: #{share.total_price}"
-          =' share.user_shortened_name
+    - expense.shares.by_user_name.decorate.each do |share|
+      .btn.btn-xs.user-name title="#{share.user.name} shares #{share.total_price}"
+        =' share.user_shortened_name

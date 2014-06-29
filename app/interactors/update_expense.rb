@@ -1,4 +1,8 @@
 class UpdateExpense
+  def self.destroy(expense)
+    new(expense, [], true).run
+  end
+
   attr_reader :expense, :new_shares, :destroy
 
   def initialize(expense, new_shares, destroy = false)

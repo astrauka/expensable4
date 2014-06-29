@@ -2,17 +2,20 @@ tr
   td
     =' link_to group.name,
                [:user, group],
-               class: "btn btn-info",
+               class: "btn btn-xs btn-info",
                data: { action: 'show' }
+  td
+    = user.balance_for(group)
   td
     =' link_to "edit",
                [:edit, :user, group],
                class: "btn btn-primary btn-xs",
                data: { action: 'edit' }
 
-    =' link_to "delete",
-               [:user, group],
-               class: "btn btn-danger btn-xs",
-               data: { method: :delete,
-                       confirm: "are you sure?",
-                       action: 'delete' }
+    - if current_user == group.creator
+      =' link_to "delete",
+                 [:user, group],
+                 class: "btn btn-danger btn-xs",
+                 data: { method: :delete,
+                         confirm: "are you sure?",
+                         action: 'delete' }

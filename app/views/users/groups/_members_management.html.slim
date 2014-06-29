@@ -4,6 +4,6 @@ h3 members
   .table-responsive
     table.table.table-striped
       tbody
-        - members.decorate.each do |member|
+        - members_including_inactive.decorate.each do |member|
           = render "member_management", member: member
 

@@ -1,5 +1,6 @@
 module Users
   class GroupsController < ::Users::BaseController
+    before_action :require_creator!, only: [:destroy]
     expose(:group, attributes: :group_params)
     expose(:expenses)
 
@@ -46,6 +47,13 @@ module Users
       params.require(:group).permit(
         :name
       )
+    end
+
+    def require_creator!
+      unless current_user == group.creator
+        redirect_to [:user, :groups],
+                    notice: 'unpermitted_action'
+      end
     end
   end
 end

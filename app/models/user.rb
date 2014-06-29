@@ -19,16 +19,22 @@ class User < ActiveRecord::Base
 
   has_many :shares
 
+  has_many :created_groups,
+           class_name: 'Group',
+           inverse_of: :creator,
+           foreign_key: :creator_id
+
   has_one :identity, dependent: :destroy
 
   validates :email, email: true
 
+  before_save :cache_name
+
+  # order
+  scope :by_name, -> { order name: :asc }
+
   def to_s
     name
-  end
-
-  def name
-    [first_name, last_name].join(' ')
   end
 
   def shortened_name
@@ -36,6 +42,16 @@ class User < ActiveRecord::Base
   end
 
   def balance_for(group)
-    user_group_relationships.for_group(group).first.try(:balance)
+    user_group_relationship_for(group).try(:balance)
+  end
+
+  def user_group_relationship_for(group)
+    user_group_relationships.for_group(group).first
+  end
+
+  private
+
+  def cache_name
+    self.name = [first_name, last_name].join(' ')
   end
 end

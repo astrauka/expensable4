@@ -6,16 +6,18 @@ h3
              data: { action: 'new' }
 
 .row
-  .table-responsive
-    table.table.table-striped
-      thead
-        tr
-          th date
-          th description
-          th payer
-          th spent
-          th sharing among
-      tbody
-        - expenses.decorate.each do |expense|
-          = render "expense", expense: expense
-
+  - if expenses.none?
+    | Time to create a new expense!
+  - else
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th date
+            th description
+            th payer
+            th spent
+            th sharing among
+        tbody
+          - expenses.decorate.each do |expense|
+            = render "expense", expense: expense

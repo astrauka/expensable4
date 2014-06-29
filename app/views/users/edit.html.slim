@@ -1,0 +1,16 @@
+h1
+  ' edit profile
+  =' link_to 'groups',
+             [:user, :groups],
+             class: 'btn btn-default btn-sm'
+
+.row.user-fields
+  = simple_form_for user,
+                    url: user_path,
+                    method: :patch,
+                    html: { class: 'form-vertical' } do |f|
+    = render 'fields', f: f
+    = f.button :submit,
+               'submit',
+               data: { action: 'submit' },
+               class: 'btn btn-primary'

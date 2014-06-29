@@ -8,13 +8,14 @@ h1
 .row
   - if groups.none?
     p
-      | You have no groups
+      | Time to create a group
   - else
     .table-responsive
       table.table.table-striped
         thead
           tr
             th title
+            th balance
             th &nbsp;
         tbody
           - groups.decorate.each do | group|

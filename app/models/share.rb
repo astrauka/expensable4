@@ -6,7 +6,11 @@ class Share < ActiveRecord::Base
 
   delegate :name, :shortened_name, to: :user, prefix: true
 
+  # filter
   scope :for_user, ->(user) { where user_id: user.id }
+
+  # order
+  scope :by_user_name, -> { includes(:user).order('users.name') }
 
   def total_price_cents
     single_price_cents * multiplier
