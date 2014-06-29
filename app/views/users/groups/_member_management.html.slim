@@ -6,6 +6,7 @@ tr
                 class: 'btn btn-xs btn-info'
     - else
       = member
+  td = balance_for(member)
   td = member.account_number
   td = member.active_yes_no(group)
   td
