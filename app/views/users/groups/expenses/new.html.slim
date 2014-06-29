@@ -7,7 +7,7 @@ h1
 = simple_form_for expense_form,
                   as: :expense_form,
                   url: [:user, group, expense],
-                  html: { class: "form-vertical" } do |f|
+                  html: { class: "form-vertical expense-form" } do |f|
   = render "fields", f: f
   = f.button :submit,
              "submit",

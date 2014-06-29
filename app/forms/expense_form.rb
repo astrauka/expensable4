@@ -37,12 +37,21 @@ class ExpenseForm
 
   def new_shares
     @new_shares =
-      group.active_user_ids.map do |user_id|
+      available_for_expense_user_ids.map do |user_id|
         Share.new(
           user_id: user_id,
           multiplier: old_share_multiplier_for(user_id) || 0
         )
       end
+  end
+
+  def available_for_expense_users
+    # include deactivated user if he is sharing
+    (expense.sharing_users + group.active_users + [expense.payer]).uniq
+  end
+
+  def available_for_expense_user_ids
+    available_for_expense_users.map(&:id)
   end
 
   def old_share_multiplier_for(user_id)
@@ -63,6 +72,10 @@ class ExpenseForm
 
   def expense_attributes=(attributes)
     # for simple_fields_for
+  end
+
+  def single_share_price_input
+    # for form, will display calculated share price
   end
 
   def shares_with_sharing_input

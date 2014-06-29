@@ -8,7 +8,7 @@ h1
                   as: :expense_form,
                   url: [:user, group, expense],
                   method: :put,
-                  html: { class: 'form-vertical' } do |f|
+                  html: { class: "form-vertical expense-form" } do |f|
   = render 'fields', f: f
   = f.button :submit,
              'submit',

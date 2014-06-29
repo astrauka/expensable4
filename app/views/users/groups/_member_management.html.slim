@@ -7,6 +7,7 @@ tr
     - else
       = member
   td = member.account_number
+  td = member.active_yes_no(group)
   td
     =' link_to member.toggle_active_text(group),
                toggle_active_user_group_member_path(group, member),

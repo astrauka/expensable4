@@ -1,4 +1,9 @@
-h3 members
+h3
+  ' members
+  =' link_to "invite friends",
+             [:user, group, :invites],
+             class: "btn btn-success btn-sm",
+             data: { action: 'edit' }
 
 .row
   .table-responsive

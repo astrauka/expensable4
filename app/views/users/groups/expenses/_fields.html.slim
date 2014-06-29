@@ -2,9 +2,9 @@
   = fe.input :description
   = fe.input :spent,
              as: :float,
-             input_html: { min: 0 }
+             input_html: { min: 0, class: 'expense-spent' }
   = fe.input :payer_id,
-             collection: group.active_users,
+             collection: f.object.available_for_expense_users,
              include_blank: false
   = fe.input :hidden,
              as: :boolean,
@@ -24,10 +24,18 @@
         = fs.input_field :multiplier,
                          as: :integer,
                          class: 'form-control',
-                         min: 0, max: 10
+                         min: 0, max: 10,
+                         data: { multiplier_user_id: fs.object.user_id }
       .col-xs-5.col-md-5.for-boolean
         = fs.input_field :sharing,
                          as: :boolean,
-                         inline_label: fs.object.user
+                         inline_label: fs.object.user,
+                         data: { sharing_user_id: fs.object.user_id }
 
     = fs.hidden_field :user_id
+
+= f.input :single_share_price_input,
+          as: :float,
+          required: false,
+          label: 'Calculated single share price',
+          input_html: { class: 'single-price-input', disabled: :disabled }

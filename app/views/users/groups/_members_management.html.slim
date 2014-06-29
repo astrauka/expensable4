@@ -3,6 +3,11 @@ h3 members
 .row
   .table-responsive
     table.table.table-striped
+      thead
+        tr
+          th name
+          th account
+          th acitve?
       tbody
         - members_including_inactive.decorate.each do |member|
           = render "member_management", member: member
