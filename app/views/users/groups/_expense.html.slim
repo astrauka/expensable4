@@ -1,0 +1,15 @@
+tr
+  td
+    = expense.created_at
+  td
+    = link_to expense,
+              [:edit, :user, group, expense],
+              data: { action: 'show' }
+  td
+    = expense.payer
+  td
+    = expense.spent
+  td.shares
+    - expense.shares.decorate.each do |share|
+        .btn.btn-xs.user-name title="Actual shared price: #{share.total_price}"
+          =' share.user_shortened_name

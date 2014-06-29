@@ -6,5 +6,5 @@ class ShareWithSharingInput
     @sharing = sharing
   end
 
-  delegate :multiplier, :user_id, :persisted?, to: :share
+  delegate :id, :multiplier, :user_id, :user, :persisted?, to: :share
 end

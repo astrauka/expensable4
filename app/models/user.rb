@@ -31,7 +31,11 @@ class User < ActiveRecord::Base
     [first_name, last_name].join(' ')
   end
 
+  def shortened_name
+    [first_name, last_name.first].join(' ')
+  end
+
   def balance_for(group)
-    user_group_relationships.for_group(group).first.balance
+    user_group_relationships.for_group(group).first.try(:balance)
   end
 end

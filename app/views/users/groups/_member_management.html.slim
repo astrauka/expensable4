@@ -1,0 +1,13 @@
+tr
+  td = member.name
+  td
+    =' link_to "deactivate",
+               deactivate_user_group_member_path(group, member),
+               class: "btn btn-warning btn-sm",
+               data: { action: 'edit' }
+
+    =' link_to "remove",
+               user_group_member_path(group, member),
+               class: "btn btn-danger btn-sm",
+               data: { method: :delete,
+                       action: 'delete' }

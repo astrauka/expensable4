@@ -1,0 +1,16 @@
+h1
+  ' edit expense
+  = link_to 'back',
+            [:user, group],
+            class: 'btn btn-default btn-sm'
+
+= simple_form_for expense_form,
+                  as: :expense_form,
+                  url: [:user, group, expense],
+                  method: :put,
+                  html: { class: 'form-vertical' } do |f|
+  = render 'fields', f: f
+  = f.button :submit,
+             'submit',
+             data: { action: 'submit' },
+             class: 'btn btn-primary'

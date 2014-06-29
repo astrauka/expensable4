@@ -16,10 +16,15 @@ class ExpenseForm
       begin
         e = group.expenses.find_or_initialize_by(id: params[:expense_id])
         e.creator = user
-        e.assign_attributes params.fetch(:expense, {})
+        e.spent = expense_attributes.delete(:spent)
+        e.assign_attributes expense_attributes
 
         e
       end
+  end
+
+  def expense_attributes
+    params.fetch(:expense_attributes, {})
   end
 
   def old_shares
@@ -30,18 +35,25 @@ class ExpenseForm
     @new_shares ||= (old_shares + missing_shares)
   end
 
-  def missing_shares
-    (group.active_user_ids - expense.sharing_user_ids).map do |user_id|
-      Share.new(
-        user_id: user_id,
-        multiplier: 0
-      )
-    end
+  def new_shares
+    @new_shares =
+      group.active_user_ids.map do |user_id|
+        Share.new(
+          user_id: user_id,
+          multiplier: old_share_multiplier_for(user_id) || 0
+        )
+      end
+  end
+
+  def old_share_multiplier_for(user_id)
+    old_shares.find do |share|
+      share.user_id == user_id
+    end.try(:multiplier)
   end
 
   def shares_to_be_persisted
     shares_with_sharing_input.select do |share_with_sharing_input|
-      share_with_sharing_input.sharing
+      share_with_sharing_input.sharing == '1'
     end.map(&:share)
   end
 
@@ -49,8 +61,13 @@ class ExpenseForm
     # for simple_fields_for
   end
 
+  def expense_attributes=(attributes)
+    # for simple_fields_for
+  end
+
   def shares_with_sharing_input
     new_shares.map do |share|
+      share.multiplier = multiplier_for(share)
       ShareWithSharingInput.new(share, sharing_for(share))
     end
   end
@@ -70,6 +87,16 @@ class ExpenseForm
   def sharing_for(share)
     if share_params_for(share)
       share_params_for(share)[:sharing]
+    else
+      old_shares.map(&:user_id).include? share.user_id
+    end
+  end
+
+  def multiplier_for(share)
+    if share_params_for(share)
+      share_params_for(share)[:multiplier]
+    else
+      share.multiplier
     end
   end
 end

@@ -1,10 +1,10 @@
 class Expense < ActiveRecord::Base
   belongs_to :creator,
-             class_name: "User",
+             class_name: 'User',
              inverse_of: :created_expenses
   belongs_to :group
   belongs_to :payer,
-             class_name: "User",
+             class_name: 'User',
              inverse_of: :paid_expenses
 
   has_many :shares,
@@ -21,4 +21,11 @@ class Expense < ActiveRecord::Base
   validates :payer, presence: true
   validates :spent, presence: true
   validates :description, presence: true
+
+  # order
+  scope :by_created_at, -> { order created_at: :desc }
+
+  def to_s
+    description
+  end
 end

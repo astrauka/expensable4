@@ -1,0 +1,2 @@
+class ShareDecorator < ApplicationDecorator
+end

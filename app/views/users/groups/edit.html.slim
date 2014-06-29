@@ -1,8 +1,8 @@
 h1
   ' edit group
-  = link_to "back",
-            [:user, :groups],
-            class: "btn btn-default btn-sm"
+  =' link_to "back",
+             [:user, group],
+             class: "btn btn-default btn-sm"
 
 .row.group-fields
   = simple_form_for group,
@@ -24,10 +24,5 @@ h1
 
   .table-responsive
     table.table.table-striped
-      thead
-        tr
-          th Name
-          th &nbsp;
       tbody
-        - members.decorate.each do |member|
-          = render "member", member: member
+        = render "members_management", members: members

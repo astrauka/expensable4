@@ -4,6 +4,6 @@ FactoryGirl.define do
     association :user, strategy: :build
 
     multiplier 1
-    single_price 10
+    single_price_cents 6_00
   end
 end

@@ -1,6 +1,8 @@
 = f.simple_fields_for :expense do |fe|
   = fe.input :description
-  = fe.input :spent
+  = fe.input :spent,
+             as: :float,
+             input_html: { min: 0 }
   = fe.input :payer_id,
              collection: group.active_users,
              include_blank: false
@@ -8,11 +10,24 @@
              as: :boolean,
              label: "Hide from others?"
 
-= f.simple_fields_for :shares_with_sharing_input,
-                      html: { class: "form-inline" } do |fs|
-  = fs.input :multiplier,
-             as: :integer
-  = fs.input :sharing,
-             as: :boolean,
-             label: 'Sharing?'
-  = fs.hidden_field :user_id
+.row
+  .col-xs-1.col-md-1
+    strong
+      | Multiplier
+  .col-xs-5.col-md-5.for-boolean
+    strong
+      | Sharing with?
+= f.simple_fields_for :shares_with_sharing_input do |fs|
+  .form-group
+    .row
+      .col-xs-1.col-md-1
+        = fs.input_field :multiplier,
+                         as: :integer,
+                         class: 'form-control',
+                         min: 0, max: 10
+      .col-xs-5.col-md-5.for-boolean
+        = fs.input_field :sharing,
+                         as: :boolean,
+                         inline_label: fs.object.user
+
+    = fs.hidden_field :user_id

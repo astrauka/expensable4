@@ -5,30 +5,48 @@ module Users
       expose(:expense) { expense_form.expense }
 
       def new
-        self.expense_form = ExpenseForm.new user, group, {}
       end
 
       def create
         if expense_form.save
           redirect_to [:user, group],
-                      notice: "created successfully"
+                      notice: 'created successfully'
         else
           flash[:notice] = 'problem occured'
           render :new
         end
       end
 
+      def edit
+      end
+
+      def update
+        if expense_form.save
+          redirect_to [:user, group],
+                      notice: 'updated successfully'
+        else
+          flash[:notice] = 'problem occured'
+          render :edit
+        end
+      end
+
       private
 
       def expense_params
+        params[:expense_form] ||= {}
+        params[:expense_form][:expense_id] = params[:id]
+
         params.require(:expense_form).permit(
-          expense: [
+          :expense_id,
+          expense_attributes: [
+            :id,
             :payer_id,
             :spent,
             :description,
             :hidden,
           ],
           shares_with_sharing_input_attributes: [
+            :id,
             :multiplier,
             :sharing,
             :user_id,

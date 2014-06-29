@@ -10,8 +10,11 @@ h3
     table.table.table-striped
       thead
         tr
+          th date
           th description
-          th &nbsp;
+          th payer
+          th spent
+          th sharing among
       tbody
         - expenses.decorate.each do |expense|
           = render "expense", expense: expense

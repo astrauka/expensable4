@@ -1,9 +1,10 @@
 class UpdateExpense
-  attr_reader :expense, :new_shares
+  attr_reader :expense, :new_shares, :destroy
 
-  def initialize(expense, new_shares)
+  def initialize(expense, new_shares, destroy = false)
     @expense = expense
     @new_shares = new_shares
+    @destroy = destroy
   end
 
   delegate :group, to: :expense
@@ -17,13 +18,17 @@ class UpdateExpense
           remove_old_shares_from_expense
         end
 
-        expense.save!
+        if destroy
+          expense.destroy!
+        else
+          expense.save!
 
-        add_new_shares_to_expense
-        add_bew_shares_to_balances
-        add_spending_to_balance
+          add_new_shares_to_expense
+          add_new_shares_to_balances
+          add_spending_to_balance
+        end
       end
-    rescue ActiveRecord::RecordInvalid
+    rescue ActiveRecord::RecordInvalid, ZeroDivisionError
       @failed = true
     end
 
@@ -37,35 +42,63 @@ class UpdateExpense
     )
   end
 
+  def update_balance_for(user, group)
+    relationship = relationship_for user, group
+    relationship.balance = yield relationship.balance
+    relationship.save!
+  end
 
   def substract_old_shares_from_balances
     expense.shares.each do |share|
-      relationship = relationship_for share.user, group
-      relationship.balance += share.total_price
-      relationship.save!
+      update_balance_for(share.user, group) do |balance|
+        balance + share.total_price
+      end
     end
   end
 
   def substract_spending_from_balance
-    relationship = relationship_for expense.payer, group
-    relationship.balance -= expense.spent
-    relationship.save!
+    update_balance_for(old_payer, group) do |balance|
+      balance - old_paid
+    end
+  end
+
+  def old_payer
+    group.users.find(expense.payer_id_was)
+  end
+
+  def old_paid
+    Money.new(expense.spent_cents_was)
   end
 
   def remove_old_shares_from_expense
-    expense.shares.each(&:destroy)
+    expense.shares.destroy_all
+  end
+
+  def new_single_share_price_cents
+    @new_single_share_price_cents ||=
+      expense.spent_cents / new_shares.sum(&:multiplier)
   end
 
   def add_new_shares_to_expense
-
+    new_shares.map do |share|
+      expense.shares.create!(
+        share.attributes.merge(single_price_cents: new_single_share_price_cents)
+      )
+    end
   end
 
   def add_new_shares_to_balances
-
+    expense.shares.each do |share|
+      update_balance_for(share.user, group) do |balance|
+        balance - share.total_price
+      end
+    end
   end
 
   def add_spending_to_balance
-
+    update_balance_for(expense.payer, group) do |balance|
+      balance + expense.spent
+    end
   end
 
   def success?
