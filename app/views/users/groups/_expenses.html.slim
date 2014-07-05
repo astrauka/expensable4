@@ -1,8 +1,8 @@
 h3
   ' expenses
-  =' link_to "new",
+  =' link_to 'new',
              [:new, :user, group, :expense],
-             class: "btn btn-success btn-sm",
+             class: 'btn btn-success btn-sm',
              data: { action: 'new' }
 
 .row
@@ -18,6 +18,9 @@ h3
             th payer
             th spent
             th sharing among
-        tbody
-          - expenses.decorate.each do |expense|
-            = render "expense", expense: expense
+        tbody.expenses-table
+
+  #paginator
+    = link_to_next_page expenses,
+                        image_tag('loading.gif'),
+                        params: { action: 'expenses_table' }

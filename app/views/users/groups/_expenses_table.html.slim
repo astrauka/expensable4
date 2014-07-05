@@ -1,0 +1,10 @@
+.expenses-response.hide
+  table
+    tbody.expenses
+      - expenses.decorate.each do |expense|
+        = render 'users/groups/expense', expense: expense
+
+  .paginator
+    = link_to_next_page expenses,
+                        image_tag('loading.gif'),
+                        params: { action: 'expenses_table' }

@@ -15,7 +15,11 @@ Expensable::Application.routes.draw do
   resource :user, only: [:edit, :update]
 
   namespace :user, module: "users" do
-    resources :groups
+    resources :groups do
+      member {
+        get :expenses_table
+      }
+    end
 
     namespace :group, module: "groups", path: "groups/:group_id" do
       resources :members, only: [] do

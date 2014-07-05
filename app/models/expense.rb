@@ -23,7 +23,7 @@ class Expense < ActiveRecord::Base
   validates :description, presence: true
 
   # order
-  scope :by_created_at, -> { order created_at: :desc }
+  scope :by_created_at_desc, -> { order created_at: :desc }
 
   def to_s
     description

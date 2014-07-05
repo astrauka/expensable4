@@ -1,14 +1,14 @@
 h1
   =' group.name
 
-  =' link_to "manage",
+  =' link_to 'manage',
              [:edit, :user, group],
-             class: "btn btn-primary btn-sm",
+             class: 'btn btn-primary btn-sm',
              data: { action: 'edit' }
 
-  =' link_to "back",
+  =' link_to 'back',
             [:user, :groups],
-            class: "btn btn-default btn-sm"
+            class: 'btn btn-default btn-sm'
 
-= render "members"
-= render "expenses"
+= render 'members'
+= render 'expenses'

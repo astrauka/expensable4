@@ -2,9 +2,15 @@ module Users
   class GroupsController < ::Users::BaseController
     before_action :require_creator!, only: [:destroy]
     expose(:group, attributes: :group_params)
-    expose(:expenses)
+    expose(:expenses) do |default|
+      default.by_created_at_desc.page(params[:page]).per(10)
+    end
 
     def index
+    end
+
+    def expenses_table
+      render partial: 'expenses_table'
     end
 
     def new
