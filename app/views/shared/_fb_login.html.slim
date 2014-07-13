@@ -1,3 +1,4 @@
 li
-  a#fb-button-link href=user_omniauth_authorize_path(:facebook)
-    img src='/assets/fb_login.png' class='fb-button'
+  = link_to image_tag('fb_login.png', class: 'fb-button'),
+            user_omniauth_authorize_path(:facebook),
+            id: 'fb-button-link'

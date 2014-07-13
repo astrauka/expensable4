@@ -20,11 +20,11 @@ h3
               = render "member", member: member
 
     .col-md-4
-      =render 'balance_chart',
-              categories: @balance_categories,
-              data: @balance_data
+      = render 'balance_chart',
+               categories: @balance_categories,
+               data: @balance_data
 
   .hidden-md.hidden-lg
-    =render 'balance_chart',
-            categories: @balance_categories,
-            data: @balance_data
+    = render 'balance_chart',
+             categories: @balance_categories,
+             data: @balance_data
