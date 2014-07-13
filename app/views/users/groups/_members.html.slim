@@ -6,20 +6,25 @@ h3
              data: { action: 'edit' }
 
 .row
-  .col-md-4
-    .table-responsive
-      table.table.table-striped
-        thead
-          tr
-            th name
-            th balance
-        tbody
-          - members.decorate.each do |member|
-            = render "member", member: member
+  .hidden-sm.hidden-xs
+    .col-md-4
+      .table-responsive
+        table.table.table-striped
+          thead
+            tr
+              th name
+              th balance
+              th account number
+          tbody
+            - members.decorate.each do |member|
+              = render "member", member: member
 
-  .col-md-4
-    #users_balance_chart[
-      data-categories=@balance_categories
-      data-data=@balance_data
-      style="height: #{70 + @balance_categories.count * 37}px;"
-    ]
+    .col-md-4
+      =render 'balance_chart',
+              categories: @balance_categories,
+              data: @balance_data
+
+  .hidden-md.hidden-lg
+    =render 'balance_chart',
+            categories: @balance_categories,
+            data: @balance_data
