@@ -30,13 +30,17 @@ gem 'decent_exposure'
 gem 'money-rails'
 
 gem 'bz-core', '0.0.5', require: 'bz_core',
-    git: 'git://github.com/astrauka/bz-core'
+    git: 'https://github.com/astrauka/bz-core'
     # path: '../bz-core'
 
 gem 'bz_highcharts',
-    git: 'git@github.com:bitzesty/bz_highcharts'
+    git: 'https://github.com/astrauka/bz_highcharts'
 
 gem 'awesome_print'
+
+group :production do
+  gem 'rails_12factor'
+end
 
 group :development, :test do
   gem 'factory_girl_rails'
@@ -63,3 +67,5 @@ group :development do
   gem 'binding_of_caller'
   gem 'better_errors'
 end
+
+ruby '2.1.2'
