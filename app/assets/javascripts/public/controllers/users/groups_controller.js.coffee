@@ -4,8 +4,12 @@ class Public.Users_GroupsController
     if window.location.hash == '#_=_'
       window.location.hash = ''
 
-  show_action: ->
-    # Search
+  show_action: =>
+    @search_expenses()
+    @scroll_expenses()
+    @balanes_chart()
+
+  search_expenses: =>
     $form = $('.filter-expenses')
     $inputs = $form.find('input')
 
@@ -15,7 +19,7 @@ class Public.Users_GroupsController
     $form.find('.select2').change ->
       $form.submit()
 
-    # scrolling
+  scroll_expenses: =>
     $('#paginator').on 'inview', (e, visible) ->
       return unless visible
 
@@ -31,3 +35,38 @@ class Public.Users_GroupsController
             $('.expenses-response').remove()
           error: ->
             $('#paginator').remove()
+
+  balanes_chart: =>
+    chart_id = "users_balance_chart"
+    $chart_div = $("##{chart_id}")
+
+    if $chart_div.length > 0
+      categories = $chart_div.data("categories")
+      data = $chart_div.data("data")
+
+      new Highcharts.Chart(
+        chart:
+          renderTo: chart_id
+          type: "bar"
+        title:
+          text: null
+        xAxis:
+          categories: categories
+        yAxis:
+          title:
+            text: null
+        series: [
+          name: null
+          data: data
+        ]
+        credits:
+          enabled: false
+        legend:
+          enabled: false
+        tooltip:
+          formatter: ->
+            if this.y > 0
+              "YEY, is ahead by " + Highcharts.numberFormat(this.y, 2)
+            else
+              "NOOO, is behind by " + Highcharts.numberFormat(-this.y, 2)
+      )

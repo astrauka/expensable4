@@ -33,6 +33,9 @@ gem 'bz-core', '0.0.5', require: 'bz_core',
     git: 'git://github.com/astrauka/bz-core'
     # path: '../bz-core'
 
+gem 'bz_highcharts',
+    git: 'git@github.com:bitzesty/bz_highcharts'
+
 gem 'awesome_print'
 
 group :development, :test do

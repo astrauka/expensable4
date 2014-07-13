@@ -3,7 +3,7 @@ module Users
     before_action :require_creator!, only: [:destroy]
     expose(:group, attributes: :group_params)
     expose(:expenses) do |default|
-      default.by_created_at_desc.page(params[:page]).per(10)
+      default.by_created_at_desc.page(params[:page])
     end
 
     def index
@@ -11,6 +11,12 @@ module Users
 
     def expenses_table
       render partial: 'expenses_table'
+    end
+
+    def show
+      group_members_balance_table = GroupMembersBalanceTable.new(group)
+      @balance_categories = group_members_balance_table.categories
+      @balance_data = group_members_balance_table.data
     end
 
     def new

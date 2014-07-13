@@ -3,6 +3,7 @@
 #= require "initialization"
 #= require_tree ./vendor
 #= require_tree ./public
+#= require bz_highcharts
 
 # application specific requirement
 #= require "expensable"
