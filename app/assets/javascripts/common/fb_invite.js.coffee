@@ -9,7 +9,7 @@ class app.FbInvite
     FB.ui(
       {
         method: 'apprequests',
-        message: 'Please join Expensable',
+        message: 'Join Expensable',
       },
       @record_sent_invites
     )
