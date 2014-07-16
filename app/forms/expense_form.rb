@@ -47,7 +47,7 @@ class ExpenseForm
 
   def available_for_expense_users
     # include deactivated user if he is sharing
-    (expense.sharing_users + group.active_users + [expense.payer]).uniq
+    (expense.sharing_users + group.active_users + [expense.payer]).compact.uniq
   end
 
   def available_for_expense_user_ids

@@ -19,6 +19,8 @@ h3
             th spent
             th sharing among
         tbody.expenses-table
+          - expenses.decorate.each do |expense|
+            = render 'users/groups/expense', expense: expense
 
   #paginator
     = link_to_next_page expenses,
