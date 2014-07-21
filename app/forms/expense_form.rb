@@ -16,6 +16,7 @@ class ExpenseForm
       begin
         e = group.expenses.find_or_initialize_by(id: params[:expense_id])
         e.creator = user
+        e.payer ||= user
         e.spent = expense_attributes.delete(:spent)
         e.assign_attributes expense_attributes
 

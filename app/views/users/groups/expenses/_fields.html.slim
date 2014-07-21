@@ -47,4 +47,6 @@
     - if payback_user.account_number.present?
       | #{payback_user} account number is: #{payback_user.account_number}
     - else
-      | Please ask #{payback_user} to enter his account number in user management
+      ' Please ask #{payback_user} to enter his account number in
+      =' link_to 'user management',
+                 [:edit, :user, group]
