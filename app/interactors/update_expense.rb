@@ -128,6 +128,8 @@ class UpdateExpense
   end
 
   def notify_participants
-    UserMailer.expense_notification(expense.creator, expense, updating?).deliver!
+    if expense.participating_user_ids.any?
+      UserMailer.expense_notification(expense.creator, expense, updating?).deliver!
+    end
   end
 end

@@ -1,9 +1,11 @@
 module Users
   class GroupsController < ::Users::BaseController
     before_action :require_creator!, only: [:destroy]
+
     expose(:group, attributes: :group_params)
-    expose(:expenses) do |default|
-      default.visible_for(current_user).by_created_at_desc.page(params[:page])
+    expose(:expenses) do
+      group.expenses
+           .visible_for(current_user).by_created_at_desc.page(params[:page])
     end
     expose(:show_payback_btn?) do
       balance_for(current_user) < 0
