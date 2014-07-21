@@ -16,7 +16,7 @@ class UpdateExpense
   def run
     begin
       Expense.transaction do
-        if expense.persisted?
+        if updating?
           substract_old_shares_from_balances
           substract_spending_from_balance
           remove_old_shares_from_expense
@@ -25,12 +25,14 @@ class UpdateExpense
         if destroy
           expense.destroy!
         else
-          cache_participating_user_ids
           expense.save!
 
           add_new_shares_to_expense
           add_new_shares_to_balances
           add_spending_to_balance
+
+          cache_participating_user_ids
+          notify_participants
         end
       end
     rescue ActiveRecord::RecordInvalid, ZeroDivisionError
@@ -38,6 +40,14 @@ class UpdateExpense
     end
 
     self
+  end
+
+  def updating?
+    if @updating.nil?
+      @updating ||= expense.persisted?
+    else
+      @updating
+    end
   end
 
   def relationship_for(user, group)
@@ -113,5 +123,11 @@ class UpdateExpense
   def cache_participating_user_ids
     expense.participating_user_ids =
       (expense.shares.map(&:user_id) << expense.payer_id).uniq.compact
+
+    expense.save!
+  end
+
+  def notify_participants
+    UserMailer.expense_notification(expense.creator, expense, updating?).deliver!
   end
 end

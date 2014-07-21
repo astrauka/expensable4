@@ -1,0 +1,12 @@
+html
+  body
+    h1
+      | Hello #{@invited_user},
+    h2
+      | You have been invited to join an Expensable group #{@group}
+
+    p
+      em
+        ' To visit the group please follow the
+        =' link_to 'link', user_group_url(@group)
+        ' .

@@ -19,6 +19,10 @@ class Group < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def to_s
+    name
+  end
+
   def balance_for(user)
     user_group_relationships.for_user(user).first.try(:balance)
   end

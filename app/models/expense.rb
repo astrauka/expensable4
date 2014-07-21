@@ -33,4 +33,12 @@ class Expense < ActiveRecord::Base
   def to_s
     description
   end
+
+  def participating_users
+    if participating_user_ids.any?
+      User.find(participating_user_ids)
+    else
+      User.none
+    end
+  end
 end

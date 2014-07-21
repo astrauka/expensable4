@@ -133,4 +133,18 @@ describe UpdateExpense do
       expect(result).to include expense.payer_id
     end
   end
+
+  describe '#notify_participants' do
+    let!(:expense) do
+      create :expense,
+             participating_user_ids: [create(:user).id]
+    end
+    let(:result) { interactor.notify_participants }
+
+    it 'notifies expense participants via email' do
+      expect {
+        result
+      }.to change(ActionMailer::Base.deliveries, :count).by 1
+    end
+  end
 end

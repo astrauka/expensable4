@@ -1,0 +1,38 @@
+html
+  body
+    p
+      strong
+        | Modified by:
+      br
+      = @current_user
+
+    p
+      strong
+        | Paid by:
+      br
+      | #{@expense.payer}: #{@expense.spent}
+
+    p
+      strong
+        | Description:
+      br
+      = @expense.description
+
+    p
+      strong
+        | Sharing among:
+      ul
+        - @expense.shares.includes(:user).each do |share|
+          li
+            | #{share.user}: #{share.total_price}
+
+    p
+      strong
+        | Group summary
+      ul
+        - @group.active_user_group_relationships.includes(:user).each do |rel|
+          li
+            | #{rel.user}: #{rel.balance}
+
+    p
+      = link_to "Visit the group", user_group_url(@group)
