@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe CreateMemberInvites do
-  let(:interactor) { described_class.new(group, invited_user_fb_ids) }
+  let(:interactor) { described_class.new(current_user, group, invited_user_fb_ids) }
+  let(:current_user) { group.users.create!(attributes_for(:user)) }
   let(:group) { create :group }
   let(:invited_user_fb_ids) {
     [
@@ -28,6 +29,18 @@ describe CreateMemberInvites do
       }.to change(Invite, :count).by 1
 
       expect(result).to be_success
+    end
+  end
+
+  describe '#notify_user' do
+    let(:result) { interactor.notify_user(invite.uid) }
+    let!(:invite) { create :identity,
+                           user: current_user }
+
+    it 'notifies user via email' do
+      expect {
+        result
+      }.to change(ActionMailer::Base.deliveries, :size).by 1
     end
   end
 end

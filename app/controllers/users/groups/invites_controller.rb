@@ -5,7 +5,9 @@ module Users
       end
 
       def create
-        creator = CreateMemberInvites.new(group, invited_user_fb_ids).run
+        creator = CreateMemberInvites.new(current_user,
+                                          group,
+                                          invited_user_fb_ids).run
         # async
         if creator.success?
           flash[:notice] = "invite sent"
