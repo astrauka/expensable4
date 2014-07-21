@@ -42,6 +42,11 @@ module Users
         end
       end
 
+      def payback
+        expense_params = PaybackExpenseParams.new(user, group).result
+        redirect_to new_user_group_expense_path(expense_params)
+      end
+
       private
 
       def expense_params
@@ -50,6 +55,7 @@ module Users
 
         params.require(:expense_form).permit(
           :expense_id,
+          :payback_user_id,
           expense_attributes: [
             :id,
             :payer_id,

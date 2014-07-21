@@ -30,7 +30,11 @@ Expensable::Application.routes.draw do
 
       resources :invites, only: [:index, :create]
 
-      resources :expenses
+      resources :expenses do
+        collection {
+          get :payback
+        }
+      end
     end
   end
 end

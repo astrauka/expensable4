@@ -3,7 +3,10 @@ module Users
     before_action :require_creator!, only: [:destroy]
     expose(:group, attributes: :group_params)
     expose(:expenses) do |default|
-      default.by_created_at_desc.page(params[:page])
+      default.visible_for(current_user).by_created_at_desc.page(params[:page])
+    end
+    expose(:show_payback_btn?) do
+      balance_for(current_user) < 0
     end
 
     def index

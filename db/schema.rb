@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140629091210) do
+ActiveRecord::Schema.define(version: 20140721184534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,16 +20,18 @@ ActiveRecord::Schema.define(version: 20140629091210) do
     t.integer  "creator_id"
     t.integer  "group_id"
     t.integer  "payer_id"
-    t.boolean  "hidden",      default: false
+    t.boolean  "hidden",                 default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
-    t.integer  "spent_cents", default: 0,     null: false
+    t.integer  "spent_cents",            default: 0,     null: false
+    t.text     "participating_user_ids", default: [],                 array: true
   end
 
   add_index "expenses", ["creator_id"], name: "index_expenses_on_creator_id", using: :btree
   add_index "expenses", ["group_id", "payer_id", "hidden"], name: "index_expenses_on_group_id_and_payer_id_and_hidden", using: :btree
   add_index "expenses", ["group_id"], name: "index_expenses_on_group_id", using: :btree
+  add_index "expenses", ["participating_user_ids"], name: "index_expenses_on_participating_user_ids", using: :gin
   add_index "expenses", ["payer_id"], name: "index_expenses_on_payer_id", using: :btree
 
   create_table "groups", force: true do |t|

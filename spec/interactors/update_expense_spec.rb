@@ -125,4 +125,12 @@ describe UpdateExpense do
       expect(Expense.count).to eq 0
     end
   end
+
+  describe '#cache_participating_user_ids' do
+    let(:result) { interactor.cache_participating_user_ids }
+
+    it 'caches participating user ids' do
+      expect(result).to include expense.payer_id
+    end
+  end
 end

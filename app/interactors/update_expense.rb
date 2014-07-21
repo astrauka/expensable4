@@ -25,6 +25,7 @@ class UpdateExpense
         if destroy
           expense.destroy!
         else
+          cache_participating_user_ids
           expense.save!
 
           add_new_shares_to_expense
@@ -107,5 +108,10 @@ class UpdateExpense
 
   def success?
     !@failed
+  end
+
+  def cache_participating_user_ids
+    expense.participating_user_ids =
+      (expense.shares.map(&:user_id) << expense.payer_id).uniq.compact
   end
 end

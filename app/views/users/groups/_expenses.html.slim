@@ -1,9 +1,16 @@
 h3
   ' expenses
+
   =' link_to 'new',
              [:new, :user, group, :expense],
              class: 'btn btn-success btn-sm',
              data: { action: 'new' }
+
+  - if show_payback_btn?
+    =' link_to 'payback',
+               [:payback, :user, group, :expenses],
+               class: 'btn btn-danger btn-sm',
+               data: { action: 'payback' }
 
 .row
   - if expenses.none?

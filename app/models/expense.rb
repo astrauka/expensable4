@@ -22,6 +22,11 @@ class Expense < ActiveRecord::Base
   validates :spent, presence: true
   validates :description, presence: true
 
+  # filter
+  scope :visible_for, ->(user) do
+    where("hidden = false OR '?' = ANY (participating_user_ids)", user.id)
+  end
+
   # order
   scope :by_created_at_desc, -> { order created_at: :desc }
 

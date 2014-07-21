@@ -32,10 +32,6 @@ class ExpenseForm
   end
 
   def new_shares
-    @new_shares ||= (old_shares + missing_shares)
-  end
-
-  def new_shares
     @new_shares =
       available_for_expense_user_ids.map do |user_id|
         Share.new(
@@ -110,6 +106,12 @@ class ExpenseForm
       share_params_for(share)[:multiplier]
     else
       share.multiplier
+    end
+  end
+
+  def payback_user
+    if user_id = params[:payback_user_id]
+      group.active_users.find(user_id)
     end
   end
 end
