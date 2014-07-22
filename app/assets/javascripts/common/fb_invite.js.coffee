@@ -2,6 +2,7 @@ class app.FbInvite
   constructor: (@callback_url, @app_id) ->
     FB.init(
       appId: @app_id,
+      version: 'v2.0',
       frictionlessRequests: true
     )
 
@@ -27,4 +28,4 @@ class app.FbInvite
     window.location.replace data.redirect_to
 
   on_invites_sent_error: (data) =>
-    window.location.replace data.redirect_to
+    # nothing
