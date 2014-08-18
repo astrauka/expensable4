@@ -1,0 +1,10 @@
+.table-responsive
+  table.table.table-striped
+    thead
+      tr
+        th name
+        th balance
+        th account number
+    tbody
+      - members.decorate.each do |member|
+        = render "member", member: member

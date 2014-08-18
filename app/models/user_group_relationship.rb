@@ -10,4 +10,5 @@ class UserGroupRelationship < ActiveRecord::Base
 
   # order
   scope :by_balance, -> { order(balance_cents: :asc) }
+  scope :by_user_name, -> { includes(:user).order('users.name') }
 end

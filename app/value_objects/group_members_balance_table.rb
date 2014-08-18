@@ -16,7 +16,7 @@ class GroupMembersBalanceTable
   end
 
   def user_balances_with_colors
-    user_group_relationships.map do |rel|
+    user_group_relationships.by_user_name.map do |rel|
       {
         color: color_by_amount(rel.balance.amount),
         y: rel.balance.amount.to_f

@@ -6,25 +6,14 @@ h3
              data: { action: 'edit' }
 
 .row
-  .hidden-sm.hidden-xs
+  .visible-md-block.visible-lg-block
     .col-md-8
-      .table-responsive
-        table.table.table-striped
-          thead
-            tr
-              th name
-              th balance
-              th account number
-          tbody
-            - members.decorate.each do |member|
-              = render "member", member: member
+      = render 'balances'
 
     .col-md-4
       = render 'balance_chart',
                categories: @balance_categories,
                data: @balance_data
 
-  .hidden-md.hidden-lg
-    = render 'balance_chart',
-             categories: @balance_categories,
-             data: @balance_data
+  .visible-xs-block.visible-sm-block
+    = render 'balances'
