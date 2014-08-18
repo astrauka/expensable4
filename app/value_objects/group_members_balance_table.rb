@@ -6,7 +6,7 @@ class GroupMembersBalanceTable
   end
 
   def categories
-    user_group_relationships.map do |rel|
+    user_group_relationships.by_user_name.map do |rel|
       rel.user.shortened_name
     end
   end
