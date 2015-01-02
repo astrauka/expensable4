@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/astrauka/bz-core
-  revision: 717074c0684cc044013407a68e747b67644290d5
+  revision: 268110dee2eefe456aeb6f3c8fa6f8d706544790
   specs:
     bz-core (0.0.5)
       bootstrap-datepicker-rails
