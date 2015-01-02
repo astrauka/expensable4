@@ -24,4 +24,9 @@ class UserMailer < ActionMailer::Base
     mail to: emails,
          subject: subject
   end
+
+  def euros(user_email)
+    mail to: user_email,
+         subject: "Expensable: Litas converted to Euros"
+  end
 end
