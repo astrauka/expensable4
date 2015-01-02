@@ -1,7 +1,7 @@
 # encoding : utf-8
 
 MoneyRails.configure do |config|
-  config.default_currency = :ltl
+  config.default_currency = :eur
   config.include_validations = true
 
   # Default ActiveRecord migration configuration values for columns:
@@ -20,6 +20,6 @@ MoneyRails.configure do |config|
                              type: :string,
                              present: false,
                              null: false,
-                             default: 'LTL'
+                             default: 'EUR'
                            }
 end
