@@ -55,10 +55,10 @@ describe ExpenseForm do
 
   describe "#new_shares" do
     let(:result) { form.new_shares }
-    let!(:expense_share) { create :share, expense: expense }
+    let!(:expense_share) { create :share, expense: expense, user: share_user, multiplier: 12 }
 
-    it "returns expense shares and built shares for new the active users" do
-      expect(result).to include expense_share
+    it "returns expense share multipliers and built shares for new the active users" do
+      expect(result.first.multiplier).to eq expense_share.multiplier
       expect(result.size).to eq 2
     end
   end

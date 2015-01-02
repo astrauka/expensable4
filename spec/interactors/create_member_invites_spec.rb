@@ -30,10 +30,21 @@ describe CreateMemberInvites do
 
       expect(result).to be_success
     end
+
+    context 'on user already in the system' do
+      let!(:identity) { create(:identity, uid: user_fb_id, user: invited_user) }
+      let(:invited_user) { create(:user) }
+
+      it 'assigns the user to group' do
+        expect(invited_user.groups).to_not include group
+        result
+        expect(invited_user.reload.groups).to include group
+      end
+    end
   end
 
   describe '#notify_user' do
-    let(:result) { interactor.notify_user(invite.uid) }
+    let(:result) { interactor.notify_user(invite) }
     let!(:invite) { create :identity,
                            user: current_user }
 

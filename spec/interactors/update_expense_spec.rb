@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe UpdateExpense do
   let(:interactor) { described_class.new(expense, new_shares, destroy: destroy) }
-  let!(:expense) { create :expense, group: group, spent_cents: spent_cents }
+  let!(:expense) { create :expense, group: group, spent_cents: spent_cents, payer: user }
   let!(:user) { group.users.create! attributes_for(:user) }
   let!(:group) { create :group }
   let!(:share) do
     expense.shares.create! attributes_for(:share).merge(user_id: user.id)
   end
   let!(:new_shares) { [new_share] }
-  let!(:new_share) { build :share, multiplier: multiplier, expense: nil }
+  let!(:new_share) { build :share, multiplier: multiplier, expense: nil, user: create(:user) }
   let!(:new_share_user_group_relationship) do
     group.users << new_share.user
     new_share.user.user_group_relationships.for_group(group).first
@@ -68,10 +68,12 @@ describe UpdateExpense do
       interactor.add_new_shares_to_expense
       interactor.add_new_shares_to_balances
     end
+    let(:share_user) { new_share.user }
+    let(:the_share) { expense.shares.find_by(user_id: new_share.user.id) }
 
     it 'reduces sharing users balances by new shares total price' do
       result
-      expect(new_share.user.balance_for(group)).to eq -new_share.total_price
+      expect(share_user.balance_for(group)).to eq -the_share.total_price
     end
   end
 
@@ -127,7 +129,7 @@ describe UpdateExpense do
   end
 
   describe '#cache_participating_user_ids' do
-    let(:result) { interactor.cache_participating_user_ids }
+    let(:result) { interactor.cache_participating_user_ids; expense.participating_user_ids }
 
     it 'caches participating user ids' do
       expect(result).to include expense.payer_id
