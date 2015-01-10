@@ -59,7 +59,7 @@ group :test do
 end
 
 group :development do
-  gem 'spring'
+  gem 'spring', '1.1.3'
   gem 'spring-commands-rspec'
   gem 'rails_layout'
   gem 'bullet'
