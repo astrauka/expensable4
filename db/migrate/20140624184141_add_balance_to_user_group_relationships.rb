@@ -1,5 +1,5 @@
 class AddBalanceToUserGroupRelationships < ActiveRecord::Migration
   def change
-    add_money :user_group_relationships, :balance
+    add_monetize :user_group_relationships, :balance
   end
 end

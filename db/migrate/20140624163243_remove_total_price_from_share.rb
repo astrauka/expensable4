@@ -1,5 +1,5 @@
 class RemoveTotalPriceFromShare < ActiveRecord::Migration
   def change
-    remove_money :shares, :total_price
+    remove_monetize :shares, :total_price
   end
 end

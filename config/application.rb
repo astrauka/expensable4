@@ -28,6 +28,8 @@ module Expensable
     config.action_mailer.default_options = {
       from: 'info@expensable4.herokuapp.com'
     }
+
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end
 

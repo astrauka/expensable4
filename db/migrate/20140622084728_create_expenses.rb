@@ -5,7 +5,7 @@ class CreateExpenses < ActiveRecord::Migration
       t.references :group, index: true
       t.references :payer, index: true
       t.boolean :hidden, default: false
-      t.money :spent
+      t.monetize :spent
 
       t.timestamps
     end

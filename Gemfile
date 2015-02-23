@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.0'
+gem 'rails', '~> 4.2.0'
 
 gem 'pg'
+
+gem 'responders', '~> 2.0'
 
 gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -59,13 +61,12 @@ group :test do
 end
 
 group :development do
-  gem 'spring', '1.1.3'
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
   gem 'spring-commands-rspec'
   gem 'rails_layout'
   gem 'bullet'
   gem 'rails_view_annotator'
-  gem 'binding_of_caller'
-  gem 'better_errors'
 end
 
-ruby '2.1.3'
+ruby '2.2.0'

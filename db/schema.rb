@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140721184534) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "expenses", force: true do |t|
+  create_table "expenses", force: :cascade do |t|
     t.integer  "creator_id"
     t.integer  "group_id"
     t.integer  "payer_id"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140721184534) do
   add_index "expenses", ["participating_user_ids"], name: "index_expenses_on_participating_user_ids", using: :gin
   add_index "expenses", ["payer_id"], name: "index_expenses_on_payer_id", using: :btree
 
-  create_table "groups", force: true do |t|
+  create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20140721184534) do
 
   add_index "groups", ["creator_id"], name: "index_groups_on_creator_id", using: :btree
 
-  create_table "identities", force: true do |t|
+  create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20140721184534) do
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
-  create_table "invites", force: true do |t|
+  create_table "invites", force: :cascade do |t|
     t.integer  "group_id"
     t.boolean  "accepted",   default: false
     t.datetime "created_at"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20140721184534) do
   add_index "invites", ["group_id"], name: "index_invites_on_group_id", using: :btree
   add_index "invites", ["uid"], name: "index_invites_on_uid", using: :btree
 
-  create_table "shares", force: true do |t|
+  create_table "shares", force: :cascade do |t|
     t.integer  "expense_id"
     t.integer  "multiplier"
     t.integer  "single_price_cents", default: 0, null: false
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20140721184534) do
   add_index "shares", ["expense_id"], name: "index_shares_on_expense_id", using: :btree
   add_index "shares", ["user_id", "expense_id"], name: "index_shares_on_user_id_and_expense_id", using: :btree
 
-  create_table "user_group_relationships", force: true do |t|
+  create_table "user_group_relationships", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "group_id"
     t.datetime "created_at"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20140721184534) do
   add_index "user_group_relationships", ["user_id", "group_id"], name: "index_user_group_relationships_on_user_id_and_group_id", unique: true, using: :btree
   add_index "user_group_relationships", ["user_id"], name: "index_user_group_relationships_on_user_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",               default: "", null: false
     t.string   "encrypted_password",  default: "", null: false
     t.datetime "remember_created_at"
