@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Expensable::Application.config.secret_key_base = 'bda6c04403bf52cfe300f3aa25faa5edb15004f841a0cb0832113af3fc95d9002c5864e55e57b9b14ae467c804face4c92cbc967e370d67beb768a5606e9bb76'
+Rails.application.config.secret_key_base = 'bda6c04403bf52cfe300f3aa25faa5edb15004f841a0cb0832113af3fc95d9002c5864e55e57b9b14ae467c804face4c92cbc967e370d67beb768a5606e9bb76'

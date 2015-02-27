@@ -33,7 +33,7 @@ class CreateMemberInvites
   end
 
   def notify_user(identity)
-    UserMailer.group_invite(current_user, group, identity.user).deliver!
+    UserMailer.group_invite(current_user, group, identity.user).deliver_now!
   end
 
   def accept_invites(identity)
