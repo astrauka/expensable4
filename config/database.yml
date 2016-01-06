@@ -3,8 +3,8 @@ defaults: &defaults
   encoding: utf8
   host: localhost
   port: 5432
-  username: postgres
-  password:
+  username: rails_postgres
+  password: development
 
 development:
   <<: *defaults

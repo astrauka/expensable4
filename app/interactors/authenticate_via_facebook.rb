@@ -22,10 +22,11 @@ class AuthenticateViaFacebook
 
   def create_or_update_user
     @user = identity.user || identity.build_user
+    first_name, *rest = auth.info.name.split(' ')
     user.update!(
       email: auth.info.email,
-      first_name: auth.info.first_name,
-      last_name: auth.info.last_name
+      first_name: first_name,
+      last_name: rest.join(' '),
     )
 
     # persist user_id
