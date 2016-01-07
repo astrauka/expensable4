@@ -16,3 +16,7 @@
 
 # application specific requirement
 //= require expensable
+
+// bootstrap-sprockets depends on generated/vendor-bundle for jQuery.
+//= require bootstrap-sprockets
+

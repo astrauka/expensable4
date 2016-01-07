@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get 'hello_world', to: 'hello_world#index'
+  get 'user', to: 'user#index'
+
   devise_for :users,
              controllers: { omniauth_callbacks: 'omniauth_callbacks',
                             sessions: 'sessions' }
