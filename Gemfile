@@ -14,6 +14,9 @@ gem 'coffee-rails'
 
 gem 'jquery-rails'
 gem 'jbuilder'
+gem 'react_on_rails', github: 'shakacode/react_on_rails', ref: '2.0.0-rc.1'
+gem 'therubyracer', platforms: :ruby
+
 
 gem 'slim-rails'
 gem 'simple_form'
