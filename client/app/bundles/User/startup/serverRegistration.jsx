@@ -1,4 +1,6 @@
 import ReactOnRails from 'react-on-rails';
-import UserApp from './UserAppServer';
+import About from '../containers/About';
 
-ReactOnRails.register({ UserApp });
+ReactOnRails.register({
+  About
+});

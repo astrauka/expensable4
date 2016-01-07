@@ -1,4 +1,4 @@
-// Webpack configuration for server bundle
+// Webpack configuration for server
 
 const webpack = require('webpack');
 const path = require('path');

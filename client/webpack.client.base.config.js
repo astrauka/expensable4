@@ -1,5 +1,3 @@
-// Common client-side webpack configuration used by webpack.hot.config and webpack.rails.config.
-
 const webpack = require('webpack');
 const path = require('path');
 
@@ -7,11 +5,8 @@ const devBuild = process.env.NODE_ENV !== 'production';
 const nodeEnv = devBuild ? 'development' : 'production';
 
 module.exports = {
-
-  // the project dir
   context: __dirname,
   entry: {
-
     // See use of 'vendor' in the CommonsChunkPlugin inclusion below.
     vendor: [
       'babel-polyfill',
@@ -32,7 +27,6 @@ module.exports = {
     },
   },
   plugins: [
-
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(nodeEnv),
@@ -55,7 +49,6 @@ module.exports = {
   ],
   module: {
     loaders: [
-
       // Not all apps require jQuery. Many Rails apps do, such as those using TurboLinks or bootstrap js
       {test: require.resolve('jquery'), loader: 'expose?jQuery'},
       {test: require.resolve('jquery'), loader: 'expose?$'},
