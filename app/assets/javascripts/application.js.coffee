@@ -1,3 +1,5 @@
+#= require webpack-bundle
+
 # application specific content, must require the following js
 #= require core_application
 #= require initialization

@@ -36,6 +36,8 @@ gem 'bz_highcharts',
 
 gem 'awesome_print'
 
+gem 'react_on_rails', '~> 6'
+
 group :production do
   gem 'rails_12factor'
 end
@@ -68,3 +70,5 @@ group :development do
 end
 
 ruby '2.3.1'
+
+gem 'therubyracer', platforms: :ruby
