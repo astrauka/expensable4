@@ -1,35 +1,4 @@
 h1 About
 br
 .row.about-page
-  p
-    ' Expensable is an application allowing you to share expenses with your
-      friends with no effort or fees.
-
-  h2 How to use it?
-  p
-    ' Once you eat luch with friends and pay for everybody all you need to do is:
-
-  ul
-    li Create a new group and name it 'Company Lunch'
-    li Invite your friends to join the group
-    li Add the expense to the group where you all belong by choosing:
-    ul
-      li Who paid
-      li How much spent
-      li Sharing with
-  br
-
-  p
-    ' The app will count the balances automatically and once you see that the
-      friends owe you big ammount of money you can ask them to transfer you
-      some such that you get back to balance.
-
-  h2 News
-  p
-    ul.bold
-      li
-        ' You can hide the expenses from the ones which are not involved
-
-  h2 Author
-  p
-    ' To contact the author please email me astrauka (at) gmail (dot) com.
+  = react_component("About", {}, prerender: true)
